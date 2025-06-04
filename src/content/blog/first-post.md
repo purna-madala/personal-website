@@ -18,7 +18,7 @@ Hello and welcome to my personal corner of the internet! I'm **Purna Sai Madala*
 This website is a blend of my professional and personal interests:
 
 ### 💻 **Technology & Coding**
-- My journey in software development
+- My journey in Cybersecurity & Software development
 - Career insights and lessons learned
 - Technical tutorials and tips
 - Industry reflections and growth stories
@@ -31,12 +31,12 @@ This website is a blend of my professional and personal interests:
 
 ## About Me
 
-I'm a cybersecurity professional and passionate home cook who believes that both coding and cooking are forms of creative problem-solving. Whether I'm debugging code or perfecting a recipe, I love the process of experimentation, learning, and continuous improvement.
+I'm a Cybersecurity professional and passionate home cook who believes that both coding and cooking are forms of creative problem-solving. Whether I'm debugging code or perfecting a recipe, I love the process of experimentation, learning, and continuous improvement.
 
 ## What's Coming
 
 Stay tuned for:
-- Detailed coding tutorials and career advice
+- Life updates and dev blogs
 - Step-by-step recipe guides with photos
 - Behind-the-scenes looks at my projects
 - Tips for balancing a tech career with creative hobbies
