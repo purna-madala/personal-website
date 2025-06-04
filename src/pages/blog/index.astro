@@ -30,157 +30,22 @@ const regularPosts = allPosts.filter(post => !post.data.featured);
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			
-			.featured-section {
-				margin-bottom: 3rem;
-			}
-			
-			.featured-title {
-				font-size: 1.5rem;
-				font-weight: 600;
-				margin-bottom: 1.5rem;
-				color: #1f2937;
-			}
-			
-			.featured-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 2rem;
-				margin-bottom: 2rem;
-			}
-			
-			.posts-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 1.5rem;
-			}
-			
-			.blog-card {
-				background: white;
-				border-radius: 12px;
-				overflow: hidden;
-				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-				transition: transform 0.2s ease, box-shadow 0.2s ease;
-			}
-			
-			.blog-card:hover {
-				transform: translateY(-4px);
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-			}
-			
-			.blog-card a {
-				text-decoration: none;
-				color: inherit;
-				display: block;
-			}
-			
-			.card-image {
-				aspect-ratio: 16/10;
-				overflow: hidden;
-				position: relative;
-			}
-			
-			.card-image img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: transform 0.2s ease;
-			}
-			
-			.blog-card:hover .card-image img {
-				transform: scale(1.05);
-			}
-			
-			.category-badge {
-				position: absolute;
-				top: 12px;
-				left: 12px;
-				padding: 4px 8px;
-				border-radius: 6px;
-				color: white;
-				font-size: 0.75rem;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 0.5px;
-			}
-			
-			.category-badge.personal {
-				background-color: #3b82f6;
-			}
-			
-			.category-badge.cooking {
-				background-color: #10b981;
-			}
-			
-			.category-badge.blog {
-				background-color: #6b7280;
-			}
-			
-			.card-content {
-				padding: 1.5rem;
-			}
-			
-			.card-title {
-				margin: 0 0 0.5rem 0;
-				font-size: 1.25rem;
-				font-weight: 600;
-				line-height: 1.3;
-				color: #1f2937;
-			}
-			
-			.card-description {
-				margin: 0 0 1rem 0;
-				color: #6b7280;
-				line-height: 1.5;
-				font-size: 0.9rem;
-			}
-			
-			.card-date {
-				margin: 0;
-				color: #9ca3af;
-				font-size: 0.875rem;
-			}
-			
-			.featured-badge {
-				position: absolute;
-				top: 12px;
-				right: 12px;
-				background-color: #f59e0b;
-				color: white;
-				padding: 4px 8px;
-				border-radius: 6px;
-				font-size: 0.75rem;
-				font-weight: 600;
-				text-transform: uppercase;
-			}
-			
-			@media (max-width: 720px) {
-				.featured-grid,
-				.posts-grid {
-					grid-template-columns: 1fr;
-					gap: 1rem;
-				}
-				
-				.card-content {
-					padding: 1rem;
-				}
-			}
-		</style>
+		<BaseHead title={`Blog - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main class="container">
+			<div class="page-header">
+				<h1 class="page-title">All Posts</h1>
+				<p class="page-description">Personal thoughts, coding insights, and delicious recipes</p>
+			</div>
+			
 			<CategoryFilter currentCategory="all" />
 			
 			{featuredPosts.length > 0 && (
 				<section class="featured-section">
-					<h2 class="featured-title">✨ Featured Posts</h2>
-					<div class="featured-grid">
+					<h2 class="section-title">Featured</h2>
+					<div class="posts-grid">
 						{featuredPosts.map((post) => {
 							if (post.collection === 'cooking' && post.data.category === 'cooking') {
 								return (
@@ -199,24 +64,23 @@ const regularPosts = allPosts.filter(post => !post.data.featured);
 								);
 							} else {
 								return (
-									<article class="blog-card">
-										<a href={`/blog/${post.id}/`}>
+									<article class="post-card">
+										<a href={`/blog/${post.id}/`} class="post-link">
 											{post.data.heroImage && (
-												<div class="card-image">
+												<div class="post-image">
 													<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
-													<span class={`category-badge ${post.collection}`}>
+													<span class={`post-category ${post.collection}`}>
 														{post.collection === 'personal' ? 'Personal' : 
 														 post.collection === 'cooking' ? 'Recipe' : 'Blog'}
 													</span>
-													<span class="featured-badge">Featured</span>
 												</div>
 											)}
-											<div class="card-content">
-												<h3 class="card-title">{post.data.title}</h3>
-												<p class="card-description">{post.data.description}</p>
-												<p class="card-date">
+											<div class="post-content">
+												<h3 class="post-title">{post.data.title}</h3>
+												<p class="post-description">{post.data.description}</p>
+												<time class="post-date">
 													<FormattedDate date={post.data.pubDate} />
-												</p>
+												</time>
 											</div>
 										</a>
 									</article>
@@ -227,8 +91,8 @@ const regularPosts = allPosts.filter(post => !post.data.featured);
 				</section>
 			)}
 			
-			<section>
-				<h2 class="featured-title">📝 All Posts</h2>
+			<section class="all-posts-section">
+				<h2 class="section-title">Recent Posts</h2>
 				<div class="posts-grid">
 					{regularPosts.map((post) => {
 						if (post.collection === 'cooking' && post.data.category === 'cooking') {
@@ -248,23 +112,23 @@ const regularPosts = allPosts.filter(post => !post.data.featured);
 							);
 						} else {
 							return (
-								<article class="blog-card">
-									<a href={`/blog/${post.id}/`}>
+								<article class="post-card">
+									<a href={`/blog/${post.id}/`} class="post-link">
 										{post.data.heroImage && (
-											<div class="card-image">
+											<div class="post-image">
 												<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
-												<span class={`category-badge ${post.collection}`}>
+												<span class={`post-category ${post.collection}`}>
 													{post.collection === 'personal' ? 'Personal' : 
 													 post.collection === 'cooking' ? 'Recipe' : 'Blog'}
 												</span>
 											</div>
 										)}
-										<div class="card-content">
-											<h3 class="card-title">{post.data.title}</h3>
-											<p class="card-description">{post.data.description}</p>
-											<p class="card-date">
+										<div class="post-content">
+											<h3 class="post-title">{post.data.title}</h3>
+											<p class="post-description">{post.data.description}</p>
+											<time class="post-date">
 												<FormattedDate date={post.data.pubDate} />
-											</p>
+											</time>
 										</div>
 									</a>
 								</article>
@@ -277,3 +141,162 @@ const regularPosts = allPosts.filter(post => !post.data.featured);
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		padding: var(--space-2xl) 0 var(--space-3xl) 0;
+		min-height: calc(100vh - 64px);
+	}
+	
+	.page-header {
+		text-align: center;
+		margin-bottom: var(--space-2xl);
+	}
+	
+	.page-title {
+		font-size: var(--font-size-3xl);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: var(--space-md);
+		color: var(--color-text);
+	}
+	
+	.page-description {
+		font-size: var(--font-size-lg);
+		color: var(--color-text-light);
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: var(--line-height-relaxed);
+	}
+	
+	.featured-section,
+	.all-posts-section {
+		margin-bottom: var(--space-3xl);
+	}
+	
+	.section-title {
+		font-size: var(--font-size-2xl);
+		font-weight: var(--font-weight-semibold);
+		margin-bottom: var(--space-xl);
+		color: var(--color-text);
+	}
+	
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: var(--space-xl);
+	}
+	
+	.post-card {
+		background-color: var(--color-background);
+		border: var(--border-width) solid var(--color-border-light);
+		border-radius: var(--border-radius-lg);
+		overflow: hidden;
+		transition: all var(--transition-normal);
+		height: 100%;
+	}
+	
+	.post-card:hover {
+		border-color: var(--color-border);
+		box-shadow: var(--shadow-md);
+		transform: translateY(-2px);
+	}
+	
+	.post-link {
+		text-decoration: none;
+		color: inherit;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+	
+	.post-image {
+		aspect-ratio: 16/9;
+		overflow: hidden;
+		position: relative;
+		background-color: var(--color-background-softer);
+	}
+	
+	.post-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-slow);
+	}
+	
+	.post-card:hover .post-image img {
+		transform: scale(1.02);
+	}
+	
+	.post-category {
+		position: absolute;
+		top: var(--space-md);
+		left: var(--space-md);
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: var(--border-radius-sm);
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-medium);
+		color: white;
+		backdrop-filter: blur(4px);
+	}
+	
+	.post-category.personal {
+		background-color: rgba(37, 99, 235, 0.9);
+	}
+	
+	.post-category.cooking {
+		background-color: rgba(5, 150, 105, 0.9);
+	}
+	
+	.post-category.blog {
+		background-color: rgba(107, 114, 128, 0.9);
+	}
+	
+	.post-content {
+		padding: var(--space-lg);
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.post-title {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		margin-bottom: var(--space-sm);
+		color: var(--color-text);
+		line-height: var(--line-height-tight);
+	}
+	
+	.post-description {
+		color: var(--color-text-light);
+		font-size: var(--font-size-sm);
+		line-height: var(--line-height-normal);
+		margin-bottom: var(--space-md);
+		flex-grow: 1;
+	}
+	
+	.post-date {
+		color: var(--color-text-lighter);
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-medium);
+		margin-top: auto;
+	}
+	
+	@media (max-width: 640px) {
+		main {
+			padding: var(--space-xl) 0 var(--space-2xl) 0;
+		}
+		
+		.page-title {
+			font-size: var(--font-size-2xl);
+		}
+		
+		.posts-grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-lg);
+		}
+		
+		.post-content {
+			padding: var(--space-md);
+		}
+	}
+</style>

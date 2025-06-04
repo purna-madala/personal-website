@@ -26,12 +26,6 @@ const {
 } = Astro.props;
 
 const totalTime = (prepTime || 0) + (cookTime || 0);
-
-const difficultyColors = {
-  easy: '#10b981',
-  medium: '#f59e0b', 
-  hard: '#ef4444'
-};
 ---
 
 <article class="recipe-card">
@@ -40,8 +34,8 @@ const difficultyColors = {
       <div class="recipe-image">
         <img src={heroImage} alt={title} loading="lazy" />
         {difficulty && (
-          <span class="difficulty-badge" data-difficulty={difficulty}>
-            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+          <span class={`difficulty-badge difficulty-${difficulty}`}>
+            {difficulty}
           </span>
         )}
       </div>
@@ -54,16 +48,16 @@ const difficultyColors = {
       <div class="recipe-meta">
         {totalTime > 0 && (
           <div class="meta-item">
-            <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="meta-icon" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V5z" clip-rule="evenodd"/>
             </svg>
-            <span>{totalTime} min</span>
+            <span>{totalTime}m</span>
           </div>
         )}
         
         {servings && (
           <div class="meta-item">
-            <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="meta-icon" viewBox="0 0 20 20" fill="currentColor">
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span>{servings} servings</span>
@@ -72,152 +66,148 @@ const difficultyColors = {
         
         {cuisine && (
           <div class="meta-item">
-            <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-            </svg>
-            <span>{cuisine}</span>
+            <span class="cuisine-tag">{cuisine}</span>
           </div>
         )}
       </div>
-      
-      {tags.length > 0 && (
-        <div class="recipe-tags">
-          {tags.map(tag => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )}
     </div>
   </a>
 </article>
 
 <style>
   .recipe-card {
-    background: white;
-    border-radius: 12px;
+    background-color: var(--color-background);
+    border: var(--border-width) solid var(--color-border-light);
+    border-radius: var(--border-radius-lg);
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all var(--transition-normal);
+    height: 100%;
   }
   
   .recipe-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
   }
   
   .recipe-link {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
   .recipe-image {
     position: relative;
     aspect-ratio: 16/10;
     overflow: hidden;
+    background-color: var(--color-background-softer);
   }
   
   .recipe-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-slow);
   }
   
   .recipe-card:hover .recipe-image img {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
   
   .difficulty-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    padding: 4px 8px;
-    border-radius: 6px;
+    top: var(--space-md);
+    right: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: capitalize;
     color: white;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
   }
   
-  .difficulty-badge[data-difficulty="easy"] {
-    background-color: #10b981;
+  .difficulty-easy {
+    background-color: var(--color-success);
   }
   
-  .difficulty-badge[data-difficulty="medium"] {
-    background-color: #f59e0b;
+  .difficulty-medium {
+    background-color: var(--color-warning);
   }
   
-  .difficulty-badge[data-difficulty="hard"] {
-    background-color: #ef4444;
+  .difficulty-hard {
+    background-color: var(--color-error);
   }
   
   .recipe-content {
-    padding: 1.5rem;
+    padding: var(--space-lg);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
   
   .recipe-title {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.3;
-    color: #1f2937;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+    line-height: var(--line-height-tight);
   }
   
   .recipe-description {
-    margin: 0 0 1rem 0;
-    color: #6b7280;
-    line-height: 1.5;
-    font-size: 0.9rem;
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    margin-bottom: var(--space-md);
+    flex-grow: 1;
   }
   
   .recipe-meta {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    align-items: center;
+    gap: var(--space-md);
     flex-wrap: wrap;
+    margin-top: auto;
   }
   
   .meta-item {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    color: #6b7280;
-    font-size: 0.875rem;
+    gap: var(--space-xs);
+    color: var(--color-text-light);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
   }
   
-  .icon {
+  .meta-icon {
     width: 16px;
     height: 16px;
+    flex-shrink: 0;
   }
   
-  .recipe-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  
-  .tag {
-    padding: 0.25rem 0.5rem;
-    background-color: #f3f4f6;
-    color: #374151;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 500;
+  .cuisine-tag {
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-background-soft);
+    color: var(--color-text);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    border: var(--border-width) solid var(--color-border-light);
   }
   
   @media (max-width: 640px) {
     .recipe-content {
-      padding: 1rem;
+      padding: var(--space-md);
     }
     
     .recipe-meta {
-      gap: 0.75rem;
+      gap: var(--space-sm);
     }
     
     .meta-item {
-      font-size: 0.8rem;
+      font-size: var(--font-size-xs);
     }
   }
 </style> 
