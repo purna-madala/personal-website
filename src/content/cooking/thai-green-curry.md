@@ -3,7 +3,7 @@
 ---
 title: "Thai Green Curry"
 description: "Authentic Thai green curry recipe adapted from @hotthaikitchen, perfect with any protein and vegetables"
-pubDate: "2024-06-04"
+pubDate: "2025-06-04"
 author: "Purna Sai Madala"
 category: "cooking"
 tags: ["thai", "curry", "coconut", "spicy", "asian"]
