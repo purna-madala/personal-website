@@ -60,3 +60,98 @@ Check out [our documentation](https://docs.astro.build) or jump into our [Discor
 ## Credit
 
 This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+
+# Personal Website - madala.me
+
+Welcome to Purna Sai Madala's personal website built with Astro. This site features a blog with multiple categories including personal posts, cooking recipes, and technical content.
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## 📁 Project Structure
+
+```
+├── public/
+│   └── images/          # Static images
+├── src/
+│   ├── components/      # Reusable Astro components
+│   ├── content/         # Content collections
+│   │   ├── blog/        # General blog posts
+│   │   ├── cooking/     # Recipe posts
+│   │   └── personal/    # Personal blog posts
+│   ├── layouts/         # Layout components
+│   ├── pages/           # Page routes
+│   └── styles/          # Global styles
+└── dist/                # Built site (generated)
+```
+
+## 📝 Content Management
+
+Content is managed through markdown files in the `src/content/` directory:
+
+- **Blog posts**: `src/content/blog/`
+- **Cooking recipes**: `src/content/cooking/`  
+- **Personal posts**: `src/content/personal/`
+
+Each content file includes frontmatter for metadata like title, description, publish date, and more.
+
+## 🌐 Deployment to Cloudflare Pages
+
+The site is configured for deployment to Cloudflare Pages at **madala.me**.
+
+### Deployment Steps:
+
+1. **Push to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Deploy to madala.me"
+   git push origin main
+   ```
+
+2. **Configure Cloudflare Pages**:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Environment variables: `NODE_VERSION=18`
+
+3. **Custom Domain**:
+   - Add `madala.me` as custom domain in Cloudflare Pages
+   - Configure DNS to point to Cloudflare Pages
+
+## 🛠️ Built With
+
+- [Astro](https://astro.build/) - Static site generator
+- [MDX](https://mdxjs.com/) - Markdown with JSX
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Cloudflare Pages](https://pages.cloudflare.com/) - Hosting
+
+## 📦 Features
+
+- ✅ Static site generation
+- ✅ Multiple content types (blog, cooking, personal)
+- ✅ RSS feed generation
+- ✅ SEO optimized with sitemap
+- ✅ Responsive design
+- ✅ Fast loading times
+- ✅ Automatic deployments
+
+## 🔗 URLs
+
+- **Production**: https://madala.me
+- **Development**: http://localhost:4321
+
+---
+
+Built with ❤️ by Purna Sai Madala

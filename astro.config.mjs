@@ -6,7 +6,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://personal-website.pages.dev/",
+  site: "https://madala.me/",
   output: "static",
   adapter: cloudflare({
     platformProxy: {

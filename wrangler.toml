@@ -11,15 +11,5 @@ for = "/*"
 "X-Frame-Options" = "DENY"
 "X-Content-Type-Options" = "nosniff"
 
-[[pages.headers]]
-for = "/admin"
-[pages.headers.values]
-"X-Frame-Options" = "SAMEORIGIN"
-
-[[pages.headers]]
-for = "*.yml"
-[pages.headers.values]
-"Content-Type" = "text/yaml; charset=utf-8"
-
 [env.production]
-vars = { SITE_URL = "https://personal-website.pages.dev" } 
+vars = { SITE_URL = "https://madala.me" } 
