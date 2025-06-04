@@ -1,0 +1,76 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Enable Netlify Identity for authentication (works with Cloudflare Pages too)
+# Alternative: Use GitHub backend directly
+# backend:
+#   name: github
+#   repo: YOUR_USERNAME/personal-website
+#   branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+# Local development mode (comment out for production)
+# local_backend: true
+
+# Production settings
+publish_mode: editorial_workflow
+site_url: https://personal-website-two-psi.vercel.app
+display_url: https://personal-website-two-psi.vercel.app
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "string"}
+      - {label: "Publish Date", name: "pubDate", widget: "datetime", default: "{{now}}"}
+      - {label: "Updated Date", name: "updatedDate", widget: "datetime", required: false}
+      - {label: "Hero Image", name: "heroImage", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "cooking"
+    label: "Cooking"
+    folder: "src/content/cooking"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "string"}
+      - {label: "Publish Date", name: "pubDate", widget: "datetime", default: "{{now}}"}
+      - {label: "Updated Date", name: "updatedDate", widget: "datetime", required: false}
+      - {label: "Hero Image", name: "heroImage", widget: "image", required: false}
+      - {label: "Author", name: "author", widget: "string", default: "Purna Sai Madala"}
+      - {label: "Category", name: "category", widget: "hidden", default: "cooking"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Difficulty", name: "difficulty", widget: "select", options: ["easy", "medium", "hard"], required: false}
+      - {label: "Prep Time (minutes)", name: "prepTime", widget: "number", required: false}
+      - {label: "Cook Time (minutes)", name: "cookTime", widget: "number", required: false}
+      - {label: "Servings", name: "servings", widget: "number", required: false}
+      - {label: "Cuisine", name: "cuisine", widget: "string", required: false}
+      - {label: "Meal Type", name: "mealType", widget: "select", options: ["breakfast", "lunch", "dinner", "snack", "dessert", "appetizer"], required: false}
+      - {label: "Ingredients", name: "ingredients", widget: "list", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "personal"
+    label: "Personal"
+    folder: "src/content/personal"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "string"}
+      - {label: "Publish Date", name: "pubDate", widget: "datetime", default: "{{now}}"}
+      - {label: "Updated Date", name: "updatedDate", widget: "datetime", required: false}
+      - {label: "Hero Image", name: "heroImage", widget: "image", required: false}
+      - {label: "Author", name: "author", widget: "string", default: "Purna Sai Madala"}
+      - {label: "Category", name: "category", widget: "hidden", default: "personal"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown"} 

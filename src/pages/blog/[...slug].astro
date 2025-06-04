@@ -1,7 +1,8 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
+
+export const prerender = true;
 
 export async function getStaticPaths() {
 	// Get posts from all collections
@@ -36,6 +37,12 @@ type Props = {
 };
 
 const { post, collection } = Astro.props;
+
+// Error handling for undefined post
+if (!post) {
+	throw new Error('Post not found');
+}
+
 const { Content } = await render(post);
 ---
 
