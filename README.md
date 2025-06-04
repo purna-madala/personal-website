@@ -1,5 +1,6 @@
-# Astro Starter Kit: Blog
+My Website for blogs and recipes
 
+<<<<<<< HEAD
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/astro-blog-starter-template)
 
 ![Astro Template Preview](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
@@ -155,3 +156,6 @@ The site is configured for deployment to Cloudflare Pages at **madala.me**.
 ---
 
 Built with ❤️ by Purna Sai Madala
+=======
+https://madala.me
+>>>>>>> 0b3c66fe6ff960d53e91e3f856063f2f0cfabd15
