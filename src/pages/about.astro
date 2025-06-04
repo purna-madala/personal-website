@@ -3,13 +3,83 @@ import Layout from '../layouts/BlogPost.astro';
 ---
 
 <Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
+	title="About Purna Sai Madala"
+	description="Learn more about Purna Sai Madala - cybersecurity professional, software developer, and passionate home cook"
+	pubDate={new Date('2025-06-04')}
 	heroImage="/blog-placeholder-about.jpg"
+	author="Purna Sai Madala"
+	category="personal"
 >
-	<p>
-		A Cybersecurity professional and a homecook.
-	</p>
+	<div class="about-content">
+		<h2>Hi, I'm Purna Sai Madala! 👋</h2>
+		
+		<p>
+			Welcome to my personal website! I'm a <strong>cybersecurity professional</strong> and <strong>passionate home cook</strong> 
+			who loves sharing knowledge and experiences through writing.
+		</p>
 
+		<h3>💼 Professional Background</h3>
+		<p>
+			In my professional life, I work in cybersecurity where I help protect organizations from digital threats. 
+			I'm passionate about software development, security best practices, and staying current with emerging technologies. 
+			My journey in tech has taught me the importance of continuous learning and sharing knowledge with the community.
+		</p>
+
+		<h3>🍳 Culinary Adventures</h3>
+		<p>
+			When I'm not working with code, you'll find me in the kitchen experimenting with new recipes and techniques. 
+			I believe cooking is another form of creative problem-solving - much like programming! I love exploring different 
+			cuisines, perfecting family recipes, and sharing delicious discoveries with others.
+		</p>
+
+		<h3>🎯 What Drives Me</h3>
+		<p>
+			I'm driven by curiosity and the desire to create meaningful content that helps others. Whether it's writing 
+			about cybersecurity best practices, sharing a coding tutorial, or posting a detailed recipe guide, 
+			I aim to provide value and inspire others to explore their own interests.
+		</p>
+
+		<h3>🌟 Beyond Work and Kitchen</h3>
+		<p>
+			I enjoy reading about technology trends, trying new restaurants, traveling to experience different cultures, 
+			and connecting with like-minded people who share similar passions for technology and food.
+		</p>
+
+		<h3>📬 Let's Connect!</h3>
+		<p>
+			I love connecting with fellow developers, security professionals, food enthusiasts, and anyone who enjoys 
+			learning new things. Feel free to reach out if you want to chat about technology, share recipe tips, 
+			or discuss anything interesting!
+		</p>
+	</div>
 </Layout>
+
+<style>
+	.about-content {
+		max-width: 700px;
+		margin: 0 auto;
+		line-height: 1.7;
+	}
+	
+	.about-content h2 {
+		color: var(--color-primary);
+		margin-bottom: var(--space-lg);
+	}
+	
+	.about-content h3 {
+		color: var(--color-text);
+		margin-top: var(--space-xl);
+		margin-bottom: var(--space-md);
+		font-size: var(--font-size-lg);
+	}
+	
+	.about-content p {
+		margin-bottom: var(--space-lg);
+		color: var(--color-text-light);
+	}
+	
+	.about-content strong {
+		color: var(--color-text);
+		font-weight: var(--font-weight-semibold);
+	}
+</style>

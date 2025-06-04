@@ -1,7 +1,7 @@
 ---
 title: "My Coding Journey: From Beginner to Professional"
 description: "Reflecting on my path in software development and the lessons learned along the way"
-pubDate: "2024-01-15"
+pubDate: "2025-06-04"
 heroImage: "/blog-placeholder-1.jpg"
 author: "Purna Sai Madala"
 category: "personal"
