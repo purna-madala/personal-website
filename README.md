@@ -1,3 +1,3 @@
 My Website for blogs and recipes
 
-www.madala.me
+https://madala.me
