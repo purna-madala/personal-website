@@ -1,0 +1,266 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import CategoryFilter from '../../../components/blog/CategoryFilter.astro';
+import RecipeCard from '../../../components/cooking/RecipeCard.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../../consts';
+import { getCollection } from 'astro:content';
+
+const cookingPosts = (await getCollection('cooking')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const featuredRecipes = cookingPosts.filter(post => post.data.featured);
+const regularRecipes = cookingPosts.filter(post => !post.data.featured);
+
+// Group recipes by cuisine for better organization
+const cuisines = [...new Set(cookingPosts.map(post => post.data.cuisine).filter(Boolean))];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Cooking Blog - ${SITE_TITLE}`} description="Delicious recipes, cooking tips, and culinary adventures" />
+		<style>
+			main {
+				width: 960px;
+			}
+			
+			.page-header {
+				margin-bottom: 2rem;
+				text-align: center;
+				background: linear-gradient(135deg, #10b981, #059669);
+				color: white;
+				padding: 3rem 2rem;
+				border-radius: 16px;
+				margin-bottom: 3rem;
+			}
+			
+			.page-title {
+				font-size: 2.5rem;
+				font-weight: 700;
+				margin-bottom: 0.5rem;
+			}
+			
+			.page-subtitle {
+				font-size: 1.125rem;
+				opacity: 0.9;
+				margin-bottom: 0;
+			}
+			
+			.featured-section {
+				margin-bottom: 3rem;
+			}
+			
+			.section-title {
+				font-size: 1.5rem;
+				font-weight: 600;
+				margin-bottom: 1.5rem;
+				color: #1f2937;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+			
+			.recipes-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+				gap: 1.5rem;
+			}
+			
+			.cuisine-filters {
+				display: flex;
+				gap: 0.5rem;
+				margin-bottom: 2rem;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			
+			.cuisine-tag {
+				padding: 0.5rem 1rem;
+				background-color: #f3f4f6;
+				color: #374151;
+				border-radius: 20px;
+				font-size: 0.875rem;
+				font-weight: 500;
+				border: 2px solid transparent;
+				transition: all 0.2s ease;
+				cursor: pointer;
+			}
+			
+			.cuisine-tag:hover {
+				background-color: #e5e7eb;
+				border-color: #10b981;
+			}
+			
+			.stats-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+				gap: 1rem;
+				margin: 2rem 0;
+			}
+			
+			.stat-card {
+				background: white;
+				padding: 1.5rem;
+				border-radius: 12px;
+				text-align: center;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+				border-left: 4px solid #10b981;
+			}
+			
+			.stat-number {
+				font-size: 2rem;
+				font-weight: 700;
+				color: #10b981;
+				margin-bottom: 0.25rem;
+			}
+			
+			.stat-label {
+				color: #6b7280;
+				font-size: 0.875rem;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				font-weight: 500;
+			}
+			
+			.empty-state {
+				text-align: center;
+				padding: 3rem 1rem;
+				color: #6b7280;
+			}
+			
+			.empty-state h3 {
+				font-size: 1.25rem;
+				margin-bottom: 0.5rem;
+				color: #374151;
+			}
+			
+			.empty-state .cooking-icon {
+				font-size: 4rem;
+				margin-bottom: 1rem;
+			}
+			
+			@media (max-width: 720px) {
+				.page-header {
+					padding: 2rem 1rem;
+				}
+				
+				.page-title {
+					font-size: 2rem;
+				}
+				
+				.recipes-grid {
+					grid-template-columns: 1fr;
+					gap: 1rem;
+				}
+				
+				.stats-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+				
+				.cuisine-filters {
+					justify-content: flex-start;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<CategoryFilter currentCategory="cooking" />
+			
+			<div class="page-header">
+				<h1 class="page-title">🍳 Cooking Blog</h1>
+				<p class="page-subtitle">Delicious recipes, cooking tips, and culinary adventures</p>
+			</div>
+			
+			{cookingPosts.length > 0 && (
+				<div class="stats-grid">
+					<div class="stat-card">
+						<div class="stat-number">{cookingPosts.length}</div>
+						<div class="stat-label">Recipes</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-number">{cuisines.length}</div>
+						<div class="stat-label">Cuisines</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-number">{cookingPosts.filter(p => p.data.difficulty === 'easy').length}</div>
+						<div class="stat-label">Easy Recipes</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-number">{featuredRecipes.length}</div>
+						<div class="stat-label">Featured</div>
+					</div>
+				</div>
+			)}
+			
+			{cuisines.length > 0 && (
+				<div class="cuisine-filters">
+					{cuisines.map(cuisine => (
+						<span class="cuisine-tag">{cuisine}</span>
+					))}
+				</div>
+			)}
+			
+			{featuredRecipes.length > 0 && (
+				<section class="featured-section">
+					<h2 class="section-title">
+						<span>⭐</span>
+						Featured Recipes
+					</h2>
+					<div class="recipes-grid">
+						{featuredRecipes.map((recipe) => (
+							<RecipeCard
+								title={recipe.data.title}
+								description={recipe.data.description}
+								href={`/blog/${recipe.id}/`}
+								heroImage={recipe.data.heroImage}
+								difficulty={recipe.data.difficulty}
+								prepTime={recipe.data.prepTime}
+								cookTime={recipe.data.cookTime}
+								servings={recipe.data.servings}
+								cuisine={recipe.data.cuisine}
+								tags={recipe.data.tags}
+							/>
+						))}
+					</div>
+				</section>
+			)}
+			
+			<section>
+				<h2 class="section-title">
+					<span>👨‍🍳</span>
+					All Recipes
+				</h2>
+				{regularRecipes.length > 0 ? (
+					<div class="recipes-grid">
+						{regularRecipes.map((recipe) => (
+							<RecipeCard
+								title={recipe.data.title}
+								description={recipe.data.description}
+								href={`/blog/${recipe.id}/`}
+								heroImage={recipe.data.heroImage}
+								difficulty={recipe.data.difficulty}
+								prepTime={recipe.data.prepTime}
+								cookTime={recipe.data.cookTime}
+								servings={recipe.data.servings}
+								cuisine={recipe.data.cuisine}
+								tags={recipe.data.tags}
+							/>
+						))}
+					</div>
+				) : cookingPosts.length === 0 ? (
+					<div class="empty-state">
+						<div class="cooking-icon">👨‍🍳</div>
+						<h3>No recipes yet</h3>
+						<p>Delicious recipes will appear here once they're published. Stay tuned for some amazing culinary adventures!</p>
+					</div>
+				) : null}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html> 

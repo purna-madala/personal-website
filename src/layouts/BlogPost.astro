@@ -5,9 +5,33 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = (
+	| CollectionEntry<'blog'>['data'] 
+	| CollectionEntry<'personal'>['data'] 
+	| CollectionEntry<'cooking'>['data']
+) & {
+	collection?: 'blog' | 'personal' | 'cooking';
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { 
+	title, 
+	description, 
+	pubDate, 
+	updatedDate, 
+	heroImage, 
+	collection = 'blog',
+	...rest 
+} = Astro.props;
+
+// Type guard and extract cooking-specific props
+const isCookingPost = collection === 'cooking';
+const cookingData = isCookingPost ? rest as CollectionEntry<'cooking'>['data'] : null;
+
+// Type guard for personal posts
+const isPersonalPost = collection === 'personal';
+const personalData = isPersonalPost ? rest as CollectionEntry<'personal'>['data'] : null;
+
+const totalTime = cookingData ? (cookingData.prepTime || 0) + (cookingData.cookTime || 0) : 0;
 ---
 
 <html lang="en">
@@ -21,6 +45,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.hero-image {
 				width: 100%;
+				position: relative;
 			}
 			.hero-image img {
 				display: block;
@@ -28,6 +53,56 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
 			}
+			
+			.category-badge {
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				padding: 8px 16px;
+				border-radius: 8px;
+				color: white;
+				font-size: 0.875rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+			
+			.category-badge.personal {
+				background-color: #3b82f6;
+			}
+			
+			.category-badge.cooking {
+				background-color: #10b981;
+			}
+			
+			.category-badge.blog {
+				background-color: #6b7280;
+			}
+			
+			.difficulty-badge {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				padding: 6px 12px;
+				border-radius: 6px;
+				color: white;
+				font-size: 0.75rem;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+			
+			.difficulty-badge.easy {
+				background-color: #10b981;
+			}
+			
+			.difficulty-badge.medium {
+				background-color: #f59e0b;
+			}
+			
+			.difficulty-badge.hard {
+				background-color: #ef4444;
+			}
+			
 			.prose {
 				width: 720px;
 				max-width: calc(100% - 2em);
@@ -51,6 +126,120 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+			
+			.recipe-meta {
+				background: #f8fafc;
+				border-radius: 12px;
+				padding: 1.5rem;
+				margin: 2rem 0;
+				border-left: 4px solid #10b981;
+			}
+			
+			.recipe-meta h3 {
+				margin: 0 0 1rem 0;
+				color: #1f2937;
+				font-size: 1.125rem;
+				font-weight: 600;
+			}
+			
+			.recipe-stats {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+				gap: 1rem;
+				margin-bottom: 1.5rem;
+			}
+			
+			.stat-item {
+				text-align: center;
+				padding: 0.75rem;
+				background: white;
+				border-radius: 8px;
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			}
+			
+			.stat-value {
+				font-size: 1.25rem;
+				font-weight: 600;
+				color: #10b981;
+				margin-bottom: 0.25rem;
+			}
+			
+			.stat-label {
+				font-size: 0.75rem;
+				color: #6b7280;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				font-weight: 500;
+			}
+			
+			.ingredients-list {
+				background: white;
+				border-radius: 8px;
+				padding: 1rem;
+			}
+			
+			.ingredients-list h4 {
+				margin: 0 0 0.75rem 0;
+				color: #1f2937;
+				font-size: 1rem;
+				font-weight: 600;
+			}
+			
+			.ingredients-list ul {
+				margin: 0;
+				padding-left: 1.5rem;
+			}
+			
+			.ingredients-list li {
+				margin-bottom: 0.5rem;
+				line-height: 1.4;
+			}
+			
+			.tags-section {
+				margin: 2rem 0;
+			}
+			
+			.tags-list {
+				display: flex;
+				gap: 0.5rem;
+				flex-wrap: wrap;
+				margin-top: 0.5rem;
+			}
+			
+			.tag {
+				padding: 0.25rem 0.75rem;
+				border-radius: 20px;
+				font-size: 0.875rem;
+				font-weight: 500;
+			}
+			
+			.tag.personal {
+				background-color: #eff6ff;
+				color: #1d4ed8;
+			}
+			
+			.tag.cooking {
+				background-color: #ecfdf5;
+				color: #059669;
+			}
+			
+			.tag.blog {
+				background-color: #f3f4f6;
+				color: #374151;
+			}
+			
+			@media (max-width: 640px) {
+				.category-badge,
+				.difficulty-badge {
+					position: static;
+					display: inline-block;
+					margin: 0.5rem 0.5rem 0 0;
+				}
+				
+				.recipe-stats {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
 		</style>
 	</head>
 
@@ -60,6 +249,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<article>
 				<div class="hero-image">
 					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+					<span class={`category-badge ${collection}`}>
+						{collection === 'personal' ? 'Personal' : 
+						 collection === 'cooking' ? 'Recipe' : 'Blog'}
+					</span>
+					{cookingData?.difficulty && (
+						<span class={`difficulty-badge ${cookingData.difficulty}`}>
+							{cookingData.difficulty}
+						</span>
+					)}
 				</div>
 				<div class="prose">
 					<div class="title">
@@ -76,7 +274,63 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						<h1>{title}</h1>
 						<hr />
 					</div>
+					
+					{isCookingPost && cookingData && (
+						<div class="recipe-meta">
+							<h3>🍳 Recipe Information</h3>
+							<div class="recipe-stats">
+								{totalTime > 0 && (
+									<div class="stat-item">
+										<div class="stat-value">{totalTime}m</div>
+										<div class="stat-label">Total Time</div>
+									</div>
+								)}
+								{cookingData.prepTime && (
+									<div class="stat-item">
+										<div class="stat-value">{cookingData.prepTime}m</div>
+										<div class="stat-label">Prep Time</div>
+									</div>
+								)}
+								{cookingData.cookTime && (
+									<div class="stat-item">
+										<div class="stat-value">{cookingData.cookTime}m</div>
+										<div class="stat-label">Cook Time</div>
+									</div>
+								)}
+								{cookingData.servings && (
+									<div class="stat-item">
+										<div class="stat-value">{cookingData.servings}</div>
+										<div class="stat-label">Servings</div>
+									</div>
+								)}
+							</div>
+							
+							{cookingData.ingredients && cookingData.ingredients.length > 0 && (
+								<div class="ingredients-list">
+									<h4>📝 Ingredients</h4>
+									<ul>
+										{cookingData.ingredients.map(ingredient => (
+											<li>{ingredient}</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</div>
+					)}
+					
 					<slot />
+					
+					{((personalData?.tags && personalData.tags.length > 0) || 
+					  (cookingData?.tags && cookingData.tags.length > 0)) && (
+						<div class="tags-section">
+							<h4>🏷️ Tags</h4>
+							<div class="tags-list">
+								{(personalData?.tags || cookingData?.tags || []).map(tag => (
+									<span class={`tag ${collection}`}>{tag}</span>
+								))}
+							</div>
+						</div>
+					)}
 				</div>
 			</article>
 		</main>

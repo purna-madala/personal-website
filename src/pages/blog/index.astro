@@ -2,13 +2,29 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import CategoryFilter from '../../components/blog/CategoryFilter.astro';
+import RecipeCard from '../../components/cooking/RecipeCard.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+// Get all posts from all collections
+const [originalBlogPosts, personalPosts, cookingPosts] = await Promise.all([
+	getCollection('blog'),
+	getCollection('personal'),
+	getCollection('cooking')
+]);
+
+// Combine all posts and sort by date
+const allPosts = [
+	...originalBlogPosts.map(post => ({ ...post, collection: 'blog' as const })),
+	...personalPosts.map(post => ({ ...post, collection: 'personal' as const })),
+	...cookingPosts.map(post => ({ ...post, collection: 'cooking' as const }))
+].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Separate featured posts
+const featuredPosts = allPosts.filter(post => post.data.featured);
+const regularPosts = allPosts.filter(post => !post.data.featured);
 ---
 
 <!doctype html>
@@ -19,68 +35,139 @@ const posts = (await getCollection('blog')).sort(
 			main {
 				width: 960px;
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
+			
+			.featured-section {
+				margin-bottom: 3rem;
+			}
+			
+			.featured-title {
+				font-size: 1.5rem;
+				font-weight: 600;
+				margin-bottom: 1.5rem;
+				color: #1f2937;
+			}
+			
+			.featured-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
+				margin-bottom: 2rem;
 			}
-			ul li {
-				width: calc(50% - 1rem);
+			
+			.posts-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 1.5rem;
 			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
+			
+			.blog-card {
+				background: white;
 				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
 			}
-			ul li a {
+			
+			.blog-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+			}
+			
+			.blog-card a {
+				text-decoration: none;
+				color: inherit;
 				display: block;
 			}
-			.title {
+			
+			.card-image {
+				aspect-ratio: 16/10;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.card-image img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.2s ease;
+			}
+			
+			.blog-card:hover .card-image img {
+				transform: scale(1.05);
+			}
+			
+			.category-badge {
+				position: absolute;
+				top: 12px;
+				left: 12px;
+				padding: 4px 8px;
+				border-radius: 6px;
+				color: white;
+				font-size: 0.75rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+			
+			.category-badge.personal {
+				background-color: #3b82f6;
+			}
+			
+			.category-badge.cooking {
+				background-color: #10b981;
+			}
+			
+			.category-badge.blog {
+				background-color: #6b7280;
+			}
+			
+			.card-content {
+				padding: 1.5rem;
+			}
+			
+			.card-title {
+				margin: 0 0 0.5rem 0;
+				font-size: 1.25rem;
+				font-weight: 600;
+				line-height: 1.3;
+				color: #1f2937;
+			}
+			
+			.card-description {
+				margin: 0 0 1rem 0;
+				color: #6b7280;
+				line-height: 1.5;
+				font-size: 0.9rem;
+			}
+			
+			.card-date {
 				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+				color: #9ca3af;
+				font-size: 0.875rem;
 			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
+			
+			.featured-badge {
+				position: absolute;
+				top: 12px;
+				right: 12px;
+				background-color: #f59e0b;
+				color: white;
+				padding: 4px 8px;
+				border-radius: 6px;
+				font-size: 0.75rem;
+				font-weight: 600;
+				text-transform: uppercase;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
+			
 			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
+				.featured-grid,
+				.posts-grid {
+					grid-template-columns: 1fr;
+					gap: 1rem;
 				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
+				
+				.card-content {
+					padding: 1rem;
 				}
 			}
 		</style>
@@ -88,22 +175,103 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
+			<CategoryFilter currentCategory="all" />
+			
+			{featuredPosts.length > 0 && (
+				<section class="featured-section">
+					<h2 class="featured-title">✨ Featured Posts</h2>
+					<div class="featured-grid">
+						{featuredPosts.map((post) => {
+							if (post.collection === 'cooking' && post.data.category === 'cooking') {
+								return (
+									<RecipeCard
+										title={post.data.title}
+										description={post.data.description}
+										href={`/blog/${post.id}/`}
+										heroImage={post.data.heroImage}
+										difficulty={post.data.difficulty}
+										prepTime={post.data.prepTime}
+										cookTime={post.data.cookTime}
+										servings={post.data.servings}
+										cuisine={post.data.cuisine}
+										tags={post.data.tags}
+									/>
+								);
+							} else {
+								return (
+									<article class="blog-card">
+										<a href={`/blog/${post.id}/`}>
+											{post.data.heroImage && (
+												<div class="card-image">
+													<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+													<span class={`category-badge ${post.collection}`}>
+														{post.collection === 'personal' ? 'Personal' : 
+														 post.collection === 'cooking' ? 'Recipe' : 'Blog'}
+													</span>
+													<span class="featured-badge">Featured</span>
+												</div>
+											)}
+											<div class="card-content">
+												<h3 class="card-title">{post.data.title}</h3>
+												<p class="card-description">{post.data.description}</p>
+												<p class="card-date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+											</div>
+										</a>
+									</article>
+								);
+							}
+						})}
+					</div>
+				</section>
+			)}
+			
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				<h2 class="featured-title">📝 All Posts</h2>
+				<div class="posts-grid">
+					{regularPosts.map((post) => {
+						if (post.collection === 'cooking' && post.data.category === 'cooking') {
+							return (
+								<RecipeCard
+									title={post.data.title}
+									description={post.data.description}
+									href={`/blog/${post.id}/`}
+									heroImage={post.data.heroImage}
+									difficulty={post.data.difficulty}
+									prepTime={post.data.prepTime}
+									cookTime={post.data.cookTime}
+									servings={post.data.servings}
+									cuisine={post.data.cuisine}
+									tags={post.data.tags}
+								/>
+							);
+						} else {
+							return (
+								<article class="blog-card">
+									<a href={`/blog/${post.id}/`}>
+										{post.data.heroImage && (
+											<div class="card-image">
+												<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+												<span class={`category-badge ${post.collection}`}>
+													{post.collection === 'personal' ? 'Personal' : 
+													 post.collection === 'cooking' ? 'Recipe' : 'Blog'}
+												</span>
+											</div>
+										)}
+										<div class="card-content">
+											<h3 class="card-title">{post.data.title}</h3>
+											<p class="card-description">{post.data.description}</p>
+											<p class="card-date">
+												<FormattedDate date={post.data.pubDate} />
+											</p>
+										</div>
+									</a>
+								</article>
+							);
+						}
+					})}
+				</div>
 			</section>
 		</main>
 		<Footer />

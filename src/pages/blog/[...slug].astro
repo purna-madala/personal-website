@@ -4,18 +4,41 @@ import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
-}
-type Props = CollectionEntry<'blog'>;
+	// Get posts from all collections
+	const [originalBlogPosts, personalPosts, cookingPosts] = await Promise.all([
+		getCollection('blog'),
+		getCollection('personal'),
+		getCollection('cooking')
+	]);
 
-const post = Astro.props;
+	// Create static paths for all posts
+	const paths = [
+		...originalBlogPosts.map((post) => ({
+			params: { slug: post.id },
+			props: { post, collection: 'blog' as const },
+		})),
+		...personalPosts.map((post) => ({
+			params: { slug: post.id },
+			props: { post, collection: 'personal' as const },
+		})),
+		...cookingPosts.map((post) => ({
+			params: { slug: post.id },
+			props: { post, collection: 'cooking' as const },
+		}))
+	];
+
+	return paths;
+}
+
+type Props = {
+	post: CollectionEntry<'blog'> | CollectionEntry<'personal'> | CollectionEntry<'cooking'>;
+	collection: 'blog' | 'personal' | 'cooking';
+};
+
+const { post, collection } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} collection={collection}>
 	<Content />
 </BlogPost>
