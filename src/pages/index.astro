@@ -23,326 +23,854 @@ const featuredCooking = cookingPosts.filter(post => post.data.featured).slice(0,
 	</head>
 	<body>
 		<Header />
-		<main class="container">
-			<section class="hero">
-				<h1 class="hero-title">Hi, I'm Purna Sai Madala</h1>
-				<p class="hero-description">
-					Software developer passionate about technology and cooking. 
-					Welcome to my corner of the internet where I share my coding journey and delicious recipes.
-				</p>
-				<div class="hero-actions">
-					<a href="/blog" class="btn btn-primary">
-						Explore Blog
-					</a>
-					<a href="/about" class="btn btn-secondary">
-						About Me
-					</a>
-				</div>
-			</section>
+		
+		<!-- Animated Background -->
+		<div class="background-animation">
+			<div class="floating-shapes">
+				<div class="shape shape-1"></div>
+				<div class="shape shape-2"></div>
+				<div class="shape shape-3"></div>
+				<div class="shape shape-4"></div>
+				<div class="shape shape-5"></div>
+			</div>
+		</div>
 
-			<section class="categories">
-				<div class="category-grid">
-					<div class="category-card">
-						<div class="category-icon">💻</div>
-						<h3 class="category-title">Personal Blog</h3>
-						<p class="category-description">
-							My coding journey, career insights, and tech learnings. 
-							From beginner struggles to professional growth.
+		<main class="main">
+			<!-- Hero Section -->
+			<section class="hero">
+				<div class="container">
+					<div class="hero-content">
+						<div class="hero-badge animate-fade-in">
+							<span class="badge-icon">🚀</span>
+							<span>Welcome to my digital universe</span>
+						</div>
+						
+						<h1 class="hero-title animate-fade-in">
+							Hi, I'm <span class="text-gradient">Purna Sai Madala</span>
+						</h1>
+						
+						<p class="hero-description animate-fade-in">
+							A passionate <strong>software developer</strong> who transforms ideas into digital experiences. 
+							Welcome to my corner of the internet where I share my <em>coding journey</em> and 
+							<em>delicious recipes</em> that fuel creativity.
 						</p>
-						<a href="/blog/personal" class="category-link">
-							View Posts →
-						</a>
+						
+						<div class="hero-stats animate-fade-in">
+							<div class="stat">
+								<div class="stat-number">3+</div>
+								<div class="stat-label">Years Experience</div>
+							</div>
+							<div class="stat">
+								<div class="stat-number">{personalPosts.length + cookingPosts.length}</div>
+								<div class="stat-label">Blog Posts</div>
+							</div>
+							<div class="stat">
+								<div class="stat-number">∞</div>
+								<div class="stat-label">Cups of Coffee</div>
+							</div>
+						</div>
+						
+						<div class="hero-actions animate-fade-in">
+							<a href="/blog" class="btn btn-primary btn-lg">
+								<span>Explore Blog</span>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="m9 18 6-6-6-6"/>
+								</svg>
+							</a>
+							<a href="/about" class="btn btn-secondary btn-lg">
+								<span>About Me</span>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+									<circle cx="12" cy="7" r="4"/>
+								</svg>
+							</a>
+						</div>
 					</div>
 					
-					<div class="category-card">
-						<div class="category-icon">🍳</div>
-						<h3 class="category-title">Cooking Blog</h3>
-						<p class="category-description">
-							Delicious recipes and culinary adventures. 
-							From quick weeknight dinners to weekend projects.
-						</p>
-						<a href="/blog/cooking" class="category-link">
-							View Recipes →
-						</a>
+					<div class="hero-visual animate-float">
+						<div class="code-window">
+							<div class="window-header">
+								<div class="window-controls">
+									<div class="control control-close"></div>
+									<div class="control control-minimize"></div>
+									<div class="control control-maximize"></div>
+								</div>
+								<div class="window-title">portfolio.js</div>
+							</div>
+							<div class="window-content">
+								<pre class="code"><code><span class="code-keyword">const</span> <span class="code-variable">developer</span> = {
+  <span class="code-property">name</span>: <span class="code-string">"Purna Sai Madala"</span>,
+  <span class="code-property">skills</span>: [<span class="code-string">"React"</span>, <span class="code-string">"Node.js"</span>, <span class="code-string">"Python"</span>],
+  <span class="code-property">passion</span>: <span class="code-string">"Creating amazing experiences"</span>,
+  <span class="code-property">loves</span>: [<span class="code-string">"Coding"</span>, <span class="code-string">"Cooking"</span>, <span class="code-string">"Coffee"</span>]
+};</code></pre>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
 
+			<!-- Categories Section -->
+			<section class="categories">
+				<div class="container">
+					<div class="section-header">
+						<h2 class="section-title">What I Share</h2>
+						<p class="section-description">
+							Dive into my world of code and cuisine
+						</p>
+					</div>
+					
+					<div class="category-grid grid md:grid-cols-2">
+						<article class="category-card card">
+							<div class="category-header">
+								<div class="category-icon">
+									<div class="icon-wrapper">💻</div>
+								</div>
+								<div class="category-meta">
+									<h3 class="category-title">Personal Blog</h3>
+									<p class="category-subtitle">{personalPosts.length} posts</p>
+								</div>
+							</div>
+							
+							<p class="category-description">
+								My coding journey, career insights, and tech learnings. 
+								From beginner struggles to professional growth, documenting 
+								every step of the way.
+							</p>
+							
+							<div class="category-footer">
+								<a href="/blog/personal" class="category-link btn btn-secondary">
+									<span>View Posts</span>
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="m9 18 6-6-6-6"/>
+									</svg>
+								</a>
+							</div>
+						</article>
+						
+						<article class="category-card card">
+							<div class="category-header">
+								<div class="category-icon">
+									<div class="icon-wrapper">🍳</div>
+								</div>
+								<div class="category-meta">
+									<h3 class="category-title">Cooking Blog</h3>
+									<p class="category-subtitle">{cookingPosts.length} recipes</p>
+								</div>
+							</div>
+							
+							<p class="category-description">
+								Delicious recipes and culinary adventures. 
+								From quick weeknight dinners to weekend projects, 
+								sharing the joy of cooking with you.
+							</p>
+							
+							<div class="category-footer">
+								<a href="/blog/cooking" class="category-link btn btn-secondary">
+									<span>View Recipes</span>
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="m9 18 6-6-6-6"/>
+									</svg>
+								</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<!-- Featured Posts Section -->
 			{(featuredPersonal.length > 0 || featuredCooking.length > 0) && (
 				<section class="featured">
-					<h2 class="section-title">Featured Posts</h2>
-					<div class="posts-grid">
-						{featuredPersonal.map((post) => (
-							<article class="post-card">
-								<a href={`/blog/${post.id}/`} class="post-link">
-									{post.data.heroImage && (
-										<div class="post-image">
-											<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
-											<span class="post-category personal">Personal</span>
-										</div>
-									)}
-									<div class="post-content">
-										<h3 class="post-title">{post.data.title}</h3>
-										<p class="post-description">{post.data.description}</p>
-										<time class="post-date">
-											<FormattedDate date={post.data.pubDate} />
-										</time>
-									</div>
-								</a>
-							</article>
-						))}
+					<div class="container">
+						<div class="section-header">
+							<h2 class="section-title">Featured Posts</h2>
+							<p class="section-description">
+								Handpicked content that I'm most proud of
+							</p>
+						</div>
 						
-						{featuredCooking.map((post) => (
-							<article class="post-card">
-								<a href={`/blog/${post.id}/`} class="post-link">
-									{post.data.heroImage && (
-										<div class="post-image">
-											<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
-											<span class="post-category cooking">Recipe</span>
+						<div class="posts-grid grid md:grid-cols-2 lg:grid-cols-2">
+							{featuredPersonal.map((post) => (
+								<article class="post-card card">
+									<a href={`/blog/${post.id}/`} class="post-link">
+										{post.data.heroImage && (
+											<div class="post-image">
+												<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+												<div class="post-overlay">
+													<span class="post-category personal">Personal</span>
+												</div>
+											</div>
+										)}
+										<div class="post-content">
+											<h3 class="post-title">{post.data.title}</h3>
+											<p class="post-description">{post.data.description}</p>
+											<div class="post-meta">
+												<time class="post-date">
+													<FormattedDate date={post.data.pubDate} />
+												</time>
+												<span class="read-time">5 min read</span>
+											</div>
 										</div>
-									)}
-									<div class="post-content">
-										<h3 class="post-title">{post.data.title}</h3>
-										<p class="post-description">{post.data.description}</p>
-										<time class="post-date">
-											<FormattedDate date={post.data.pubDate} />
-										</time>
-									</div>
-								</a>
-							</article>
-						))}
+									</a>
+								</article>
+							))}
+							
+							{featuredCooking.map((post) => (
+								<article class="post-card card">
+									<a href={`/blog/${post.id}/`} class="post-link">
+										{post.data.heroImage && (
+											<div class="post-image">
+												<img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+												<div class="post-overlay">
+													<span class="post-category cooking">Recipe</span>
+												</div>
+											</div>
+										)}
+										<div class="post-content">
+											<h3 class="post-title">{post.data.title}</h3>
+											<p class="post-description">{post.data.description}</p>
+											<div class="post-meta">
+												<time class="post-date">
+													<FormattedDate date={post.data.pubDate} />
+												</time>
+												<span class="read-time">{post.data.prepTime}min prep</span>
+											</div>
+										</div>
+									</a>
+								</article>
+							))}
+						</div>
 					</div>
 				</section>
 			)}
+
+			<!-- Call to Action Section -->
+			<section class="cta">
+				<div class="container">
+					<div class="cta-content">
+						<div class="cta-text">
+							<h2 class="cta-title">Ready to dive deeper?</h2>
+							<p class="cta-description">
+								Join me on this journey of continuous learning and delicious discoveries. 
+								Let's explore the intersection of technology and creativity together.
+							</p>
+						</div>
+						<div class="cta-actions">
+							<a href="/blog" class="btn btn-primary btn-lg">
+								<span>Explore All Posts</span>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="m9 18 6-6-6-6"/>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
+		
 		<Footer />
 	</body>
 </html>
 
 <style>
-	main {
-		padding: var(--space-3xl) 0;
-		min-height: calc(100vh - 64px);
+	/* Background Animation */
+	.background-animation {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: -1;
+		overflow: hidden;
 	}
 	
+	.floating-shapes {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.shape {
+		position: absolute;
+		border-radius: var(--border-radius-full);
+		background: var(--gradient-primary);
+		opacity: 0.1;
+		animation: float 8s ease-in-out infinite;
+	}
+	
+	.shape-1 {
+		width: 80px;
+		height: 80px;
+		top: 10%;
+		left: 10%;
+		animation-delay: 0s;
+	}
+	
+	.shape-2 {
+		width: 120px;
+		height: 120px;
+		top: 70%;
+		right: 10%;
+		animation-delay: 2s;
+		background: var(--gradient-secondary);
+	}
+	
+	.shape-3 {
+		width: 60px;
+		height: 60px;
+		top: 40%;
+		left: 80%;
+		animation-delay: 4s;
+		background: var(--gradient-accent);
+	}
+	
+	.shape-4 {
+		width: 100px;
+		height: 100px;
+		top: 80%;
+		left: 20%;
+		animation-delay: 1s;
+	}
+	
+	.shape-5 {
+		width: 140px;
+		height: 140px;
+		top: 20%;
+		right: 30%;
+		animation-delay: 3s;
+		background: var(--gradient-secondary);
+	}
+
+	/* Main Layout */
+	.main {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Hero Section */
 	.hero {
+		padding: var(--space-20) 0 var(--space-24);
+		background: 
+			radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+			radial-gradient(circle at 80% 20%, rgba(5, 150, 105, 0.1) 0%, transparent 50%),
+			radial-gradient(circle at 40% 80%, rgba(192, 38, 211, 0.08) 0%, transparent 50%);
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.hero::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: 
+			linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
+			linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.05) 100%);
+		pointer-events: none;
+	}
+	
+	.hero .container {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-12);
+		align-items: center;
+		position: relative;
+		z-index: 1;
+	}
+	
+	@media (min-width: 1024px) {
+		.hero .container {
+			grid-template-columns: 1fr 1fr;
+			gap: var(--space-16);
+		}
+	}
+	
+	.hero-content {
 		text-align: center;
-		margin-bottom: var(--space-3xl);
-		padding: var(--space-3xl) 0;
+	}
+	
+	@media (min-width: 1024px) {
+		.hero-content {
+			text-align: left;
+		}
+	}
+	
+	.hero-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
+		padding: var(--space-2) var(--space-4);
+		background: rgba(255, 255, 255, 0.9);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: var(--border-radius-full);
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-6);
+		backdrop-filter: blur(10px);
+		box-shadow: var(--shadow-sm);
+	}
+	
+	.badge-icon {
+		font-size: var(--font-size-base);
 	}
 	
 	.hero-title {
-		font-size: clamp(var(--font-size-3xl), 5vw, 3.5rem);
-		font-weight: var(--font-weight-bold);
-		margin-bottom: var(--space-lg);
-		color: var(--color-text);
+		font-size: clamp(var(--font-size-4xl), 8vw, var(--font-size-7xl));
+		font-weight: var(--font-weight-extrabold);
+		line-height: var(--line-height-tight);
+		margin-bottom: var(--space-6);
+		letter-spacing: var(--letter-spacing-tight);
+	}
+	
+	.text-gradient {
+		background: var(--gradient-primary);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 	}
 	
 	.hero-description {
-		font-size: var(--font-size-lg);
-		color: var(--color-text-light);
-		max-width: 600px;
-		margin: 0 auto var(--space-2xl) auto;
+		font-size: var(--font-size-xl);
 		line-height: var(--line-height-relaxed);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-8);
+		max-width: 600px;
+	}
+	
+	@media (min-width: 1024px) {
+		.hero-description {
+			max-width: none;
+		}
+	}
+	
+	.hero-stats {
+		display: flex;
+		justify-content: center;
+		gap: var(--space-8);
+		margin-bottom: var(--space-10);
+	}
+	
+	@media (min-width: 1024px) {
+		.hero-stats {
+			justify-content: flex-start;
+		}
+	}
+	
+	.stat {
+		text-align: center;
+	}
+	
+	.stat-number {
+		font-size: var(--font-size-3xl);
+		font-weight: var(--font-weight-bold);
+		color: var(--color-primary);
+		margin-bottom: var(--space-1);
+	}
+	
+	.stat-label {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		font-weight: var(--font-weight-medium);
 	}
 	
 	.hero-actions {
 		display: flex;
-		gap: var(--space-md);
+		gap: var(--space-4);
 		justify-content: center;
-		flex-wrap: wrap;
 	}
 	
-	.categories {
-		margin-bottom: var(--space-3xl);
+	@media (min-width: 1024px) {
+		.hero-actions {
+			justify-content: flex-start;
+		}
 	}
 	
-	.category-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: var(--space-xl);
+	@media (max-width: 640px) {
+		.hero-actions {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+
+	/* Hero Visual */
+	.hero-visual {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	
-	.category-card {
-		background-color: var(--color-background);
-		border: var(--border-width) solid var(--color-border-light);
-		border-radius: var(--border-radius-lg);
-		padding: var(--space-2xl);
-		text-align: center;
-		transition: all var(--transition-normal);
+	.code-window {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--border-radius-2xl);
+		box-shadow: var(--shadow-2xl);
+		width: 100%;
+		max-width: 500px;
+		overflow: hidden;
 	}
 	
-	.category-card:hover {
-		border-color: var(--color-border);
-		box-shadow: var(--shadow-lg);
-		transform: translateY(-4px);
+	.window-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: var(--space-4);
+		background: var(--color-background-secondary);
+		border-bottom: 1px solid var(--color-border);
 	}
 	
-	.category-icon {
-		font-size: 3rem;
-		margin-bottom: var(--space-lg);
-		display: block;
+	.window-controls {
+		display: flex;
+		gap: var(--space-2);
 	}
 	
-	.category-title {
-		font-size: var(--font-size-xl);
-		font-weight: var(--font-weight-semibold);
-		margin-bottom: var(--space-md);
+	.control {
+		width: 12px;
+		height: 12px;
+		border-radius: var(--border-radius-full);
+	}
+	
+	.control-close { background: #ff5f57; }
+	.control-minimize { background: #ffbd2e; }
+	.control-maximize { background: #28ca42; }
+	
+	.window-title {
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+		color: var(--color-text-secondary);
+	}
+	
+	.window-content {
+		padding: var(--space-6);
+	}
+	
+	.code {
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-sm);
+		line-height: var(--line-height-relaxed);
 		color: var(--color-text);
 	}
 	
-	.category-description {
-		color: var(--color-text-light);
-		line-height: var(--line-height-relaxed);
-		margin-bottom: var(--space-lg);
+	.code-keyword { color: #ff6b6b; }
+	.code-variable { color: #4ecdc4; }
+	.code-property { color: #45b7d1; }
+	.code-string { color: #96ceb4; }
+
+	/* Section Styling */
+	.categories,
+	.featured,
+	.cta {
+		padding: var(--space-20) 0;
 	}
 	
-	.category-link {
-		color: var(--color-primary);
-		font-weight: var(--font-weight-medium);
-		text-decoration: none;
-		transition: color var(--transition-fast);
-	}
-	
-	.category-link:hover {
-		color: var(--color-primary-dark);
-	}
-	
-	.featured {
-		margin-bottom: var(--space-3xl);
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--space-16);
 	}
 	
 	.section-title {
-		font-size: var(--font-size-2xl);
-		font-weight: var(--font-weight-semibold);
-		text-align: center;
-		margin-bottom: var(--space-2xl);
-		color: var(--color-text);
+		font-size: var(--font-size-4xl);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: var(--space-4);
+		background: var(--gradient-primary);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 	}
 	
+	.section-description {
+		font-size: var(--font-size-xl);
+		color: var(--color-text-secondary);
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	/* Category Cards */
+	.category-grid {
+		gap: var(--space-8);
+	}
+	
+	.category-card {
+		padding: var(--space-8);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.category-header {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
+		margin-bottom: var(--space-6);
+	}
+	
+	.category-icon {
+		position: relative;
+	}
+	
+	.icon-wrapper {
+		width: 60px;
+		height: 60px;
+		border-radius: var(--border-radius-2xl);
+		background: var(--gradient-primary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: var(--font-size-2xl);
+		box-shadow: var(--shadow-primary);
+		animation: float 3s ease-in-out infinite;
+	}
+	
+	.category-card:nth-child(2) .icon-wrapper {
+		background: var(--gradient-secondary);
+		box-shadow: var(--shadow-secondary);
+		animation-delay: 1s;
+	}
+	
+	.category-title {
+		font-size: var(--font-size-2xl);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: var(--space-1);
+	}
+	
+	.category-subtitle {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		font-weight: var(--font-weight-medium);
+	}
+	
+	.category-description {
+		flex-grow: 1;
+		margin-bottom: var(--space-6);
+		line-height: var(--line-height-relaxed);
+	}
+	
+	.category-footer {
+		margin-top: auto;
+	}
+
+	/* Post Cards */
 	.posts-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: var(--space-xl);
+		gap: var(--space-8);
 	}
 	
 	.post-card {
-		background-color: var(--color-background);
-		border: var(--border-width) solid var(--color-border-light);
-		border-radius: var(--border-radius-lg);
-		overflow: hidden;
-		transition: all var(--transition-normal);
 		height: 100%;
-	}
-	
-	.post-card:hover {
-		border-color: var(--color-border);
-		box-shadow: var(--shadow-md);
-		transform: translateY(-2px);
+		overflow: hidden;
+		transition: var(--transition-all);
 	}
 	
 	.post-link {
-		text-decoration: none;
-		color: inherit;
 		display: flex;
 		flex-direction: column;
 		height: 100%;
+		text-decoration: none;
+		color: inherit;
 	}
 	
 	.post-image {
 		aspect-ratio: 16/9;
 		overflow: hidden;
 		position: relative;
-		background-color: var(--color-background-softer);
+		background: var(--color-background-tertiary);
 	}
 	
 	.post-image img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform var(--transition-slow);
+		transition: var(--transition-slow);
 	}
 	
 	.post-card:hover .post-image img {
-		transform: scale(1.02);
+		transform: scale(1.05);
+	}
+	
+	.post-overlay {
+		position: absolute;
+		top: var(--space-4);
+		left: var(--space-4);
 	}
 	
 	.post-category {
-		position: absolute;
-		top: var(--space-md);
-		left: var(--space-md);
-		padding: var(--space-xs) var(--space-sm);
-		border-radius: var(--border-radius-sm);
+		padding: var(--space-1-5) var(--space-3);
+		border-radius: var(--border-radius-full);
 		font-size: var(--font-size-xs);
-		font-weight: var(--font-weight-medium);
+		font-weight: var(--font-weight-semibold);
 		color: white;
-		backdrop-filter: blur(4px);
+		backdrop-filter: blur(10px);
+		box-shadow: var(--shadow-sm);
 	}
 	
 	.post-category.personal {
-		background-color: var(--color-primary);
+		background: rgba(37, 99, 235, 0.9);
 	}
 	
 	.post-category.cooking {
-		background-color: var(--color-secondary);
+		background: rgba(5, 150, 105, 0.9);
 	}
 	
 	.post-content {
-		padding: var(--space-lg);
+		padding: var(--space-6);
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
 	}
 	
 	.post-title {
-		font-size: var(--font-size-lg);
-		font-weight: var(--font-weight-semibold);
-		margin-bottom: var(--space-sm);
-		color: var(--color-text);
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: var(--space-3);
 		line-height: var(--line-height-tight);
 	}
 	
 	.post-description {
-		color: var(--color-text-light);
-		font-size: var(--font-size-sm);
-		line-height: var(--line-height-normal);
-		margin-bottom: var(--space-md);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+		margin-bottom: var(--space-4);
 		flex-grow: 1;
 	}
 	
-	.post-date {
-		color: var(--color-text-lighter);
-		font-size: var(--font-size-xs);
-		font-weight: var(--font-weight-medium);
+	.post-meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
 		margin-top: auto;
 	}
 	
-	@media (max-width: 640px) {
-		main {
-			padding: var(--space-2xl) 0;
-		}
-		
+	.post-date {
+		font-weight: var(--font-weight-medium);
+	}
+	
+	.read-time {
+		padding: var(--space-1) var(--space-2);
+		background: var(--color-background-secondary);
+		border-radius: var(--border-radius-base);
+		font-weight: var(--font-weight-medium);
+	}
+
+	/* CTA Section */
+	.cta {
+		background: var(--gradient-primary);
+		color: white;
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.cta::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: 
+			radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+			radial-gradient(circle at 70% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+		pointer-events: none;
+	}
+	
+	.cta-content {
+		position: relative;
+		z-index: 1;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	
+	.cta-title {
+		font-size: var(--font-size-4xl);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: var(--space-6);
+		color: white;
+	}
+	
+	.cta-description {
+		font-size: var(--font-size-xl);
+		line-height: var(--line-height-relaxed);
+		margin-bottom: var(--space-8);
+		color: rgba(255, 255, 255, 0.9);
+	}
+	
+	.cta .btn-primary {
+		background: white;
+		color: var(--color-primary);
+	}
+	
+	.cta .btn-primary:hover {
+		background: rgba(255, 255, 255, 0.95);
+		color: var(--color-primary-dark);
+	}
+
+	/* Animations */
+	.animate-fade-in {
+		animation: fadeIn 0.8s ease-out forwards;
+		opacity: 0;
+	}
+
+	.animate-fade-in:nth-child(1) { animation-delay: 0.1s; }
+	.animate-fade-in:nth-child(2) { animation-delay: 0.2s; }
+	.animate-fade-in:nth-child(3) { animation-delay: 0.3s; }
+	.animate-fade-in:nth-child(4) { animation-delay: 0.4s; }
+	.animate-fade-in:nth-child(5) { animation-delay: 0.5s; }
+
+	/* Mobile Optimizations */
+	@media (max-width: 768px) {
 		.hero {
-			padding: var(--space-2xl) 0;
+			padding: var(--space-16) 0 var(--space-20);
 		}
 		
-		.hero-actions {
-			flex-direction: column;
-			align-items: center;
+		.hero-stats {
+			gap: var(--space-6);
 		}
 		
-		.category-grid,
-		.posts-grid {
-			grid-template-columns: 1fr;
-			gap: var(--space-lg);
+		.categories,
+		.featured,
+		.cta {
+			padding: var(--space-16) 0;
 		}
 		
-		.category-card {
-			padding: var(--space-xl);
+		.section-header {
+			margin-bottom: var(--space-12);
 		}
 		
+		.category-card,
 		.post-content {
-			padding: var(--space-md);
+			padding: var(--space-6);
+		}
+	}
+	
+	@media (max-width: 640px) {
+		.hero-title {
+			font-size: var(--font-size-4xl);
+		}
+		
+		.hero-description {
+			font-size: var(--font-size-lg);
+		}
+		
+		.section-title {
+			font-size: var(--font-size-3xl);
+		}
+		
+		.section-description {
+			font-size: var(--font-size-lg);
+		}
+		
+		.cta-title {
+			font-size: var(--font-size-3xl);
+		}
+		
+		.cta-description {
+			font-size: var(--font-size-lg);
 		}
 	}
 </style>
