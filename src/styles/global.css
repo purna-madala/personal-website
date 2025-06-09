@@ -45,15 +45,12 @@
   /* Dynamic Color Variables */
   --color-primary: var(--color-primary-600);
   --color-primary-light: var(--color-primary-500);
-  --color-primary-dark: var(--color-primary-700);
   
   --color-secondary: var(--color-secondary-600);
   --color-secondary-light: var(--color-secondary-500);
-  --color-secondary-dark: var(--color-secondary-700);
   
   --color-accent: var(--color-accent-600);
   --color-accent-light: var(--color-accent-500);
-  --color-accent-dark: var(--color-accent-700);
   
   /* Light Theme Colors */
   --color-text: #0f172a;
@@ -216,80 +213,6 @@
   --container-2xl: 1536px;
 }
 
-/* Dark Mode Variables */
-[data-theme="dark"] {
-  --color-text: #f8fafc;
-  --color-text-secondary: #e2e8f0;
-  --color-text-tertiary: #cbd5e1;
-  --color-text-quaternary: #94a3b8;
-  
-  --color-background: #0f172a;
-  --color-background-secondary: #1e293b;
-  --color-background-tertiary: #334155;
-  --color-background-quaternary: #475569;
-  
-  --color-border: #334155;
-  --color-border-secondary: #475569;
-  --color-border-tertiary: #64748b;
-  
-  --color-surface: #1e293b;
-  --color-surface-secondary: #334155;
-  --color-surface-elevated: #475569;
-  
-  --gradient-surface: linear-gradient(135deg, rgba(30,41,59,0.9) 0%, rgba(51,65,85,0.9) 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-  
-  --glass-background: rgba(0, 0, 0, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  
-  /* Dark mode shadows */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-  --shadow-2xl: 0 50px 100px -20px rgba(0, 0, 0, 0.6);
-}
-
-/* Auto dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-text: #f8fafc;
-    --color-text-secondary: #e2e8f0;
-    --color-text-tertiary: #cbd5e1;
-    --color-text-quaternary: #94a3b8;
-    
-    --color-background: #0f172a;
-    --color-background-secondary: #1e293b;
-    --color-background-tertiary: #334155;
-    --color-background-quaternary: #475569;
-    
-    --color-border: #334155;
-    --color-border-secondary: #475569;
-    --color-border-tertiary: #64748b;
-    
-    --color-surface: #1e293b;
-    --color-surface-secondary: #334155;
-    --color-surface-elevated: #475569;
-    
-    --gradient-surface: linear-gradient(135deg, rgba(30,41,59,0.9) 0%, rgba(51,65,85,0.9) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-    
-    --glass-background: rgba(0, 0, 0, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    
-    /* Dark mode shadows */
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-    --shadow-2xl: 0 50px 100px -20px rgba(0, 0, 0, 0.6);
-  }
-}
-
 /* Reset & Base Styles */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -307,6 +230,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  color-scheme: light only;
 }
 
 body {
@@ -316,12 +240,6 @@ body {
     radial-gradient(circle at 75% 75%, var(--color-secondary-50) 0%, transparent 50%);
   min-height: 100vh;
   transition: var(--transition-colors);
-}
-
-[data-theme="dark"] body {
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(5, 150, 105, 0.03) 0%, transparent 50%);
 }
 
 /* Enhanced Typography */
@@ -373,7 +291,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-primary-dark);
+  color: var(--color-primary-700);
 }
 
 a:focus-visible {
@@ -391,11 +309,6 @@ html {
 ::selection {
   background-color: var(--color-primary-200);
   color: var(--color-primary-900);
-}
-
-[data-theme="dark"] ::selection {
-  background-color: var(--color-primary-800);
-  color: var(--color-primary-100);
 }
 
 /* Focus Styles */

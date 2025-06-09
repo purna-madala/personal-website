@@ -17,39 +17,8 @@ import { SITE_TITLE } from '../consts';
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
-
-		<button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-			<span class="theme-icon">🌙</span>
-		</button>
 	</nav>
 </header>
-
-<script>
-	// Theme toggle functionality
-	const themeToggle = document.getElementById('theme-toggle');
-	const themeIcon = themeToggle?.querySelector('.theme-icon');
-	
-	function updateTheme() {
-		const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-		if (themeIcon) {
-			themeIcon.textContent = isDark ? '☀️' : '🌙';
-		}
-	}
-	
-	themeToggle?.addEventListener('click', () => {
-		const currentTheme = document.documentElement.getAttribute('data-theme');
-		const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-		document.documentElement.setAttribute('data-theme', newTheme);
-		localStorage.setItem('theme', newTheme);
-		updateTheme();
-	});
-	
-	// Initialize theme
-	const savedTheme = localStorage.getItem('theme') || 
-		(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-	document.documentElement.setAttribute('data-theme', savedTheme);
-	updateTheme();
-</script>
 
 <style>
 	.header {
@@ -63,13 +32,7 @@ import { SITE_TITLE } from '../consts';
 		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 		transition: var(--transition-all);
 		animation: slideDown 0.6s ease-out;
-	}
-	
-	@media (prefers-color-scheme: dark) {
-		.header {
-			background: rgba(15, 23, 42, 0.8);
-			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		}
+		color-scheme: light only;
 	}
 	
 	.nav {
@@ -164,42 +127,7 @@ import { SITE_TITLE } from '../consts';
 		padding: var(--space-2) var(--space-6);
 		box-shadow: var(--shadow-lg);
 	}
-	
-	@media (prefers-color-scheme: dark) {
-		.nav-links {
-			background: rgba(0, 0, 0, 0.2);
-			border: 1px solid rgba(255, 255, 255, 0.1);
-		}
-	}
-	
-	.theme-toggle {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 48px;
-		height: 48px;
-		border: none;
-		background: rgba(255, 255, 255, 0.1);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		border-radius: var(--border-radius-full);
-		cursor: pointer;
-		transition: var(--transition-all);
-		z-index: 2;
-		box-shadow: var(--shadow-sm);
-	}
-	
-	.theme-toggle:hover {
-		transform: translateY(-2px) rotate(10deg);
-		box-shadow: var(--shadow-md);
-		background: rgba(255, 255, 255, 0.2);
-	}
-	
-	.theme-icon {
-		font-size: var(--font-size-lg);
-		transition: var(--transition-all);
-	}
-	
+
 	/* Mobile Responsive */
 	@media (max-width: 768px) {
 		.nav {
@@ -212,13 +140,6 @@ import { SITE_TITLE } from '../consts';
 			transform: none;
 			gap: var(--space-4);
 			padding: var(--space-1-5) var(--space-4);
-			order: 2;
-		}
-		
-		.theme-toggle {
-			width: 42px;
-			height: 42px;
-			order: 3;
 		}
 		
 		.brand-icon {
@@ -239,16 +160,7 @@ import { SITE_TITLE } from '../consts';
 			padding: var(--space-3) var(--space-4);
 		}
 		
-		.nav-brand {
-			order: 1;
-		}
-		
-		.theme-toggle {
-			order: 2;
-		}
-		
 		.nav-links {
-			order: 3;
 			width: 100%;
 			margin-top: var(--space-3);
 			justify-content: center;
